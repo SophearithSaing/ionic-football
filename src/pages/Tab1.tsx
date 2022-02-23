@@ -10,6 +10,10 @@ import {
   IonCard,
   IonIcon,
   IonToggle,
+  IonModal,
+  IonRow,
+  IonLoading,
+  IonSpinner,
 } from '@ionic/react';
 import { chevronBackOutline, chevronForwardOutline } from 'ionicons/icons';
 import { useContext } from 'react';
@@ -21,6 +25,13 @@ const Tab1: React.FC = () => {
   const context = useContext(Context);
   const [matches, setMatches] = useState<any[]>([]);
   const [selectedLeague, setSelectedLeague] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [goals, setGoals] = useState<any>({});
+  const [teams, setTeams] = useState<any>({});
+  const [homeStat, setHomeStat] = useState<any[]>([]);
+  const [awayStat, setAwayStat] = useState<any[]>([]);
+  const [loadMatches, setLoadMatches] = useState(false);
+  const [loadFixture, setloadFixture] = useState(false);
 
   const leagues = [
     {
@@ -87,8 +98,13 @@ const Tab1: React.FC = () => {
     });
   };
 
+  const toggleDarkModeHandler = () => {
+    document.body.classList.toggle('dark');
+  };
+
   const changeLeagueHandler = async (event: any) => {
     setMatches([]);
+    setLoadMatches(true);
     setSelectedLeague(event.currentTarget.getAttribute('data-league'));
 
     const leagueID = event.currentTarget.getAttribute('data-league-id');
@@ -115,6 +131,7 @@ const Tab1: React.FC = () => {
 
     const data = await response.json();
     setMatches(data.response);
+    setLoadMatches(false);
   };
 
   const formatMatchTime = (time: any) => {
@@ -125,8 +142,32 @@ const Tab1: React.FC = () => {
     return `${number[0]}:${number[1]} ${time[1]}`;
   };
 
-  const toggleDarkModeHandler = () => {
-    document.body.classList.toggle('dark');
+  const handleOpen = async (event: any) => {
+    setShowModal(true);
+    setloadFixture(true);
+    setTeams({});
+    setGoals({});
+    setHomeStat([]);
+    setAwayStat([]);
+
+    const fixtureID = event.currentTarget.getAttribute('data-id');
+    const response = await fetch(
+      `https://v3.football.api-sports.io/fixtures?id=${fixtureID}`,
+      {
+        headers: {
+          'x-apisports-key': 'cecd3586b04e7c5ec4f347e8b9278b36',
+        },
+      }
+    );
+
+    const data = await response.json();
+    const fixture = data.response[0];
+
+    setTeams(fixture.teams);
+    setGoals(fixture.goals);
+    setHomeStat(fixture.statistics[0].statistics);
+    setAwayStat(fixture.statistics[1].statistics);
+    setloadFixture(false);
   };
 
   return (
@@ -134,7 +175,11 @@ const Tab1: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Matches</IonTitle>
-          <IonToggle id='themeToggle' slot='end' onIonChange={toggleDarkModeHandler} />
+          <IonToggle
+            id='themeToggle'
+            slot='end'
+            onIonChange={toggleDarkModeHandler}
+          />
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -168,8 +213,24 @@ const Tab1: React.FC = () => {
         </div>
 
         <div className='matches'>
+          {loadMatches && (
+            <IonSpinner
+              name='crescent'
+              color='primary'
+              className='stats__spinner'
+            />
+          )}
           {matches.map((match) => (
-            <IonCard className='matches__item' key={match.fixture.id}>
+            <IonCard
+              className='matches__item'
+              key={match.fixture.id}
+              onClick={
+                match.fixture.status.long !== 'Not Started'
+                  ? handleOpen
+                  : undefined
+              }
+              data-id={match.fixture.id}
+            >
               <div className='matches__item--content'>
                 <div className='matches__item--team'>
                   <img
@@ -198,6 +259,54 @@ const Tab1: React.FC = () => {
               </div>
             </IonCard>
           ))}
+          <IonModal isOpen={showModal} swipeToClose={true}>
+            <IonCard className='stats'>
+              {loadFixture && (
+                <IonSpinner
+                  name='crescent'
+                  color='primary'
+                  className='stats__spinner'
+                />
+              )}
+              {!loadFixture && (
+                <div className='stats__home'>
+                  <p className='stats__home--name'>{teams.home?.name}</p>
+                  {homeStat.map((stat) => (
+                    <p key={stat.type}>
+                      {stat.value !== null ? stat.value : 'N/A'}
+                    </p>
+                  ))}
+                </div>
+              )}
+              {!loadFixture && (
+                <div className='stats__type'>
+                  <p className='stats__type--scores'>
+                    {goals.home} : {goals.away}
+                  </p>
+                  {homeStat.map((stat) => (
+                    <p key={stat.type}>{stat.type}</p>
+                  ))}
+                </div>
+              )}
+              {!loadFixture && (
+                <div className='stats__away'>
+                  <p className='stats__away--name'>{teams.away?.name}</p>
+                  {awayStat.map((stat) => (
+                    <p key={stat.type}>
+                      {stat.value !== null ? stat.value : 'N/A'}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </IonCard>
+            <IonButton
+              onClick={() => setShowModal(false)}
+              fill='outline'
+              className='stats__close'
+            >
+              Close
+            </IonButton>
+          </IonModal>
         </div>
       </IonContent>
     </IonPage>

@@ -59,3 +59,57 @@
   text-align: center;
   transition: all .3s ease;
 }
+
+.stats {
+  padding: 24px;
+  display: flex;
+  font-size: 14px;
+}
+
+.stats__spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.stats__home {
+  width: 30%;
+  text-align: left;
+}
+.stats__home--name {
+  font-weight: 600;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stats__type {
+  width: 40%;
+  text-align: center;
+}
+.stats__type--scores {
+  font-weight: 600;
+  font-size: 16px;
+}
+.stats__away {
+  width: 30%;
+  text-align: right;
+}
+.stats__away--name {
+  font-weight: 600;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stats p {
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+}
+.stats__close {
+  margin: 16px;
+}
+.show-modal #ion-react-wrapper {
+  justify-content: space-evenly;
+}
