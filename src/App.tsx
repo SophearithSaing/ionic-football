@@ -48,7 +48,7 @@ const App: React.FC = () => (
             <Tab2 />
           </Route>
           <Route exact path="/">
-            <Redirect to="/tab1" />
+            <Redirect to="/tab2" />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

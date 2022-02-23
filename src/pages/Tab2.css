@@ -1,0 +1,38 @@
+.standings__tournaments {
+  padding: 16px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.standings__spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.standings__table {
+  padding: 16px 16px 16px 0;
+  overflow-x: auto;
+}
+.standings__table--row {
+  margin-bottom: 10px;
+  flex-wrap: nowrap;
+  text-align: center;
+}
+.standings__table--team-name {
+  min-width: 150px;
+}
+.standings__table--team-name div {
+  display: flex !important;
+  align-items: center;
+}
+.standings__table--team-name img {
+  height: 24px;
+  margin-right: 8px;
+}
+.standings__table--team-name p {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
