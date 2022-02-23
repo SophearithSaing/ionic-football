@@ -9,6 +9,7 @@ import {
   IonLabel,
   IonCard,
   IonIcon,
+  IonToggle,
 } from '@ionic/react';
 import { chevronBackOutline, chevronForwardOutline } from 'ionicons/icons';
 import { useContext } from 'react';
@@ -56,10 +57,12 @@ const Tab1: React.FC = () => {
       month: 'short',
     }),
     dateString: `${today.toISOString().slice(0, 10)}`,
-  });  
+  });
 
   const increaseDate = () => {
-    const date = new Date(selectedDate.dateString).setDate(selectedDate.date + 1);
+    const date = new Date(selectedDate.dateString).setDate(
+      selectedDate.date + 1
+    );
     const nextDate = new Date(date);
     setSelectedDate({
       date: nextDate.getDate(),
@@ -91,7 +94,7 @@ const Tab1: React.FC = () => {
     const leagueID = event.currentTarget.getAttribute('data-league-id');
     let date = context.date;
     console.log(date);
-    
+
     if (date === '') {
       const today = new Date();
       const month =
@@ -122,11 +125,16 @@ const Tab1: React.FC = () => {
     return `${number[0]}:${number[1]} ${time[1]}`;
   };
 
+  const toggleDarkModeHandler = () => {
+    document.body.classList.toggle('dark');
+  };
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonTitle>Matches</IonTitle>
+          <IonToggle id='themeToggle' slot='end' onIonChange={toggleDarkModeHandler} />
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

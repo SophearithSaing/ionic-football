@@ -1,6 +1,6 @@
 {
 	"appId": "io.ionic.starter",
-	"appName": "ionic-football",
+	"appName": "Ionic Football",
 	"webDir": "build",
 	"bundledWebRuntime": false
 }
