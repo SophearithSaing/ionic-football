@@ -1,5 +1,7 @@
 {
   "name": "ionic-football",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "react"
 }
