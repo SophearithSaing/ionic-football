@@ -3,3 +3,59 @@
   display: flex;
   justify-content: space-between;
 }
+
+.calendar__date {
+  display: flex;
+  flex-direction: column;
+}
+
+.leagues {
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.matches__item {
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+.matches__item--content {
+  margin: auto;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+.matches__item--team {
+  width: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.matches__item--team img {
+  display: inline-block;
+  height: 32px;
+}
+
+.matches__item--team p {
+  display: inline-block;
+  margin: 0;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.matches__item--score {
+  width: calc(30% - 16px);
+  font-size: 12px;
+  text-align: center;
+  transition: all .3s ease;
+}
