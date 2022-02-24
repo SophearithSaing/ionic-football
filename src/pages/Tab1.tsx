@@ -204,24 +204,22 @@ const Tab1: React.FC = () => {
             <IonIcon icon={chevronBackOutline} />
           </IonButton>
           <div>
-            <IonButton
-              fill='outline'
-              onClick={() => setOpenDate(true)}
-            >
+            <IonButton fill='outline' onClick={() => setOpenDate(true)}>
               <IonIcon icon={calendar} />
             </IonButton>
             <IonModal
               isOpen={openDate}
               showBackdrop={true}
               className='calendar__modal'
-              onClick={() => setOpenDate(false)}
             >
+              <div className='blank' onClick={() => setOpenDate(false)} />
               <IonDatetime
                 className='calendar__datepicker'
                 presentation='date'
                 value={selectedDate.dateString}
                 onIonChange={changeDate}
               />
+              <div className='blank' onClick={() => setOpenDate(false)} />
             </IonModal>
             <IonButton color='primary' fill='solid'>
               <span>{selectedDate.date}</span>

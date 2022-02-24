@@ -11,13 +11,22 @@
 
 .calendar__modal {
   max-width: 100%;
-  padding: 0 16px;
   --background: none;
+}
+
+.calendar__modal .blank {
+  flex-grow: 1;
 }
 
 .calendar__datepicker {
   max-width: 100%;
+  margin: 0 16px;
   padding: 16px;
+  color: black;
+}
+
+body.dark .calendar__datepicker {
+  color: white;
 }
 
 .leagues {
