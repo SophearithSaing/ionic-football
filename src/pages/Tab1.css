@@ -11,6 +11,7 @@
 
 .calendar__modal {
   max-width: 100%;
+  padding: 0 16px;
   --background: none;
 }
 
@@ -20,9 +21,20 @@
 
 .calendar__datepicker {
   max-width: 100%;
-  margin: 0 16px;
   padding: 16px;
   color: black;
+}
+
+@media (min-width: 576px) {
+  .calendar__modal {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 767px) {
+  .calendar__datepicker {
+    height: 100%;
+  }
 }
 
 body.dark .calendar__datepicker {

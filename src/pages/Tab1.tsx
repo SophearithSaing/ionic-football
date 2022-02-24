@@ -212,6 +212,7 @@ const Tab1: React.FC = () => {
               isOpen={openDate}
               showBackdrop={true}
               className='calendar__modal'
+              onIonModalDidDismiss={() => setOpenDate(false)}
             >
               <div className='blank' onClick={() => setOpenDate(false)} />
               <IonDatetime
