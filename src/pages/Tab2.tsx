@@ -1,4 +1,18 @@
-import { IonCard, IonChip, IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRow, IonSpinner, IonTitle, IonToggle, IonToolbar } from '@ionic/react';
+import {
+  IonCard,
+  IonChip,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonLabel,
+  IonPage,
+  IonRow,
+  IonSpinner,
+  IonTitle,
+  IonToggle,
+  IonToolbar,
+} from '@ionic/react';
 import { useState } from 'react';
 import './Tab2.css';
 

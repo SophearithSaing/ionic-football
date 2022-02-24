@@ -11,55 +11,55 @@ import {
   IonIcon,
   IonToggle,
   IonModal,
-  IonRow,
-  IonLoading,
   IonSpinner,
+  IonDatetime,
 } from '@ionic/react';
-import { chevronBackOutline, chevronForwardOutline } from 'ionicons/icons';
+import { calendar, chevronBackOutline, chevronForwardOutline } from 'ionicons/icons';
 import { useContext } from 'react';
 import { useState } from 'react';
 import Context from '../store/context';
 import './Tab1.css';
+
+const leagues = [
+  {
+    id: 39,
+    league: 'Premier League',
+    name: 'premier-league',
+  },
+  {
+    id: 140,
+    league: 'La Liga',
+    name: 'la-liga',
+  },
+  {
+    id: 78,
+    league: 'Bundesliga',
+    name: 'bundesliga',
+  },
+  {
+    id: 135,
+    league: 'Serie A',
+    name: 'serie-a',
+  },
+  {
+    id: 61,
+    league: 'League 1',
+    name: 'league-1',
+  },
+];
 
 const Tab1: React.FC = () => {
   const context = useContext(Context);
   const [matches, setMatches] = useState<any[]>([]);
   const [selectedLeague, setSelectedLeague] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [openDate, setOpenDate] = useState(false);
   const [goals, setGoals] = useState<any>({});
   const [teams, setTeams] = useState<any>({});
   const [homeStat, setHomeStat] = useState<any[]>([]);
   const [awayStat, setAwayStat] = useState<any[]>([]);
   const [loadMatches, setLoadMatches] = useState(false);
   const [loadFixture, setloadFixture] = useState(false);
-
-  const leagues = [
-    {
-      id: 39,
-      league: 'Premier League',
-      name: 'premier-league',
-    },
-    {
-      id: 140,
-      league: 'La Liga',
-      name: 'la-liga',
-    },
-    {
-      id: 78,
-      league: 'Bundesliga',
-      name: 'bundesliga',
-    },
-    {
-      id: 135,
-      league: 'Serie A',
-      name: 'serie-a',
-    },
-    {
-      id: 61,
-      league: 'League 1',
-      name: 'league-1',
-    },
-  ];
 
   const today = new Date();
   const [selectedDate, setSelectedDate] = useState({
@@ -97,6 +97,18 @@ const Tab1: React.FC = () => {
       dateString: `${nextDate.toISOString().slice(0, 10)}`,
     });
   };
+
+  const changeDate = (event: any) => {
+    const date = new Date(event.detail.value);
+    setSelectedDate({
+      date: date.getDate(),
+      month: date.toLocaleString('en-US', {
+        month: 'short',
+      }),
+      dateString: `${date.toISOString().slice(0, 10)}`,
+    });
+    setOpenDate(false);
+  }
 
   const toggleDarkModeHandler = () => {
     document.body.classList.toggle('dark');
@@ -139,7 +151,11 @@ const Tab1: React.FC = () => {
     time = time.split(' ');
     const number = time[0].split(':');
     number.pop();
-    return `${number[0]}:${number[1]} ${time[1]}`;
+    if (time[1]) {
+      return `${number[0]}:${number[1]} ${time[1]}`;
+    } else {
+      return `${number[0]}:${number[1]}`;
+    }
   };
 
   const handleOpen = async (event: any) => {
@@ -187,11 +203,32 @@ const Tab1: React.FC = () => {
           <IonButton color='primary' fill='outline' onClick={decreaseDate}>
             <IonIcon icon={chevronBackOutline} />
           </IonButton>
-          <IonButton color='primary' fill='solid' onClick={increaseDate}>
-            <span>{selectedDate.date}</span>
-            &nbsp;
-            <span>{selectedDate.month}</span>
-          </IonButton>
+          <div>
+            <IonButton
+              fill='outline'
+              onClick={() => setOpenDate(true)}
+            >
+              <IonIcon icon={calendar} />
+            </IonButton>
+            <IonModal
+              isOpen={openDate}
+              showBackdrop={true}
+              className='calendar__modal'
+              onClick={() => setOpenDate(false)}
+            >
+              <IonDatetime
+                className='calendar__datepicker'
+                presentation='date'
+                value={selectedDate.dateString}
+                onIonChange={changeDate}
+              />
+            </IonModal>
+            <IonButton color='primary' fill='solid'>
+              <span>{selectedDate.date}</span>
+              &nbsp;
+              <span>{selectedDate.month}</span>
+            </IonButton>
+          </div>
           <IonButton color='primary' fill='outline' onClick={increaseDate}>
             <IonIcon icon={chevronForwardOutline} />
           </IonButton>
