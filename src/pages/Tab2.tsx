@@ -13,7 +13,9 @@ import {
   IonToggle,
   IonToolbar,
 } from '@ionic/react';
+import { useContext } from 'react';
 import { useState } from 'react';
+import Context from '../store/context';
 import './Tab2.css';
 
 const leagues = [
@@ -45,6 +47,7 @@ const leagues = [
 ];
 
 const Tab2: React.FC = () => {
+  const context = useContext(Context);
   const [selectedLeague, setSelectedLeague] = useState('');
   const [standings, setStandings] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -82,7 +85,8 @@ const Tab2: React.FC = () => {
           <IonToggle
             id='themeToggle'
             slot='end'
-            onIonChange={toggleDarkModeHandler}
+            checked={context.isDark}
+            onIonChange={context.toggleDarkMode}
           />
         </IonToolbar>
       </IonHeader>

@@ -110,9 +110,9 @@ const Tab1: React.FC = () => {
     setOpenDate(false);
   }
 
-  const toggleDarkModeHandler = () => {
-    document.body.classList.toggle('dark');
-  };
+  // const toggleDarkModeHandler = () => {
+  //   document.body.classList.toggle('dark');
+  // };
 
   const changeLeagueHandler = async (event: any) => {
     setMatches([]);
@@ -194,7 +194,8 @@ const Tab1: React.FC = () => {
           <IonToggle
             id='themeToggle'
             slot='end'
-            onIonChange={toggleDarkModeHandler}
+            checked={context.isDark}
+            onIonChange={context.toggleDarkMode}
           />
         </IonToolbar>
       </IonHeader>
