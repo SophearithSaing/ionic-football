@@ -14,7 +14,11 @@ import {
   IonSpinner,
   IonDatetime,
 } from '@ionic/react';
-import { calendar, chevronBackOutline, chevronForwardOutline } from 'ionicons/icons';
+import {
+  calendar,
+  chevronBackOutline,
+  chevronForwardOutline,
+} from 'ionicons/icons';
 import { useContext } from 'react';
 import { useState } from 'react';
 import Context from '../store/context';
@@ -45,6 +49,16 @@ const leagues = [
     id: 61,
     league: 'League 1',
     name: 'league-1',
+  },
+  {
+    id: 2,
+    league: 'UCL',
+    name: 'ucl',
+  },
+  {
+    id: 3,
+    league: 'UEL',
+    name: 'uel',
   },
 ];
 
@@ -108,11 +122,7 @@ const Tab1: React.FC = () => {
       dateString: `${date.toISOString().slice(0, 10)}`,
     });
     setOpenDate(false);
-  }
-
-  // const toggleDarkModeHandler = () => {
-  //   document.body.classList.toggle('dark');
-  // };
+  };
 
   const changeLeagueHandler = async (event: any) => {
     setMatches([]);
@@ -250,6 +260,9 @@ const Tab1: React.FC = () => {
         </div>
 
         <div className='matches'>
+          {!loadMatches && selectedLeague && matches.length === 0 && (
+            <p className='matches__not-found'>No Matches Found!</p>
+          )}
           {loadMatches && (
             <IonSpinner
               name='crescent'

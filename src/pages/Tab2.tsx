@@ -52,10 +52,6 @@ const Tab2: React.FC = () => {
   const [standings, setStandings] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const toggleDarkModeHandler = () => {
-    document.body.classList.toggle('dark');
-  };
-
   const changeLeagueHandler = async (event: any) => {
     setIsLoading(true);
     setStandings([]);

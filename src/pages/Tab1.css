@@ -48,6 +48,12 @@ body.dark .calendar__datepicker {
   gap: 10px;
 }
 
+.matches__not-found {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 20px;
+}
+
 .matches__item {
   margin-top: 16px;
   cursor: pointer;
