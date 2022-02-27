@@ -72,6 +72,7 @@ const Tab1: React.FC = () => {
   const [teams, setTeams] = useState<any>({});
   const [homeStat, setHomeStat] = useState<any[]>([]);
   const [awayStat, setAwayStat] = useState<any[]>([]);
+  const [scorers, setScorers] = useState<any[]>([]);
   const [loadMatches, setLoadMatches] = useState(false);
   const [loadFixture, setloadFixture] = useState(false);
 
@@ -191,6 +192,7 @@ const Tab1: React.FC = () => {
 
     setTeams(fixture.teams);
     setGoals(fixture.goals);
+    setScorers(fixture.events.filter((el: any) => el.detail === 'Normal Goal'));
     setHomeStat(fixture.statistics[0].statistics);
     setAwayStat(fixture.statistics[1].statistics);
     setloadFixture(false);
@@ -272,7 +274,9 @@ const Tab1: React.FC = () => {
           )}
           {matches.map((match) => (
             <IonCard
-              className='matches__item'
+              className={`matches__item ${
+                match.fixture.status.long !== 'Not Started' ? 'clickable' : ''
+              }`}
               key={match.fixture.id}
               onClick={
                 match.fixture.status.long !== 'Not Started'
@@ -318,36 +322,71 @@ const Tab1: React.FC = () => {
                   className='stats__spinner'
                 />
               )}
-              {!loadFixture && (
-                <div className='stats__home'>
-                  <p className='stats__home--name'>{teams.home?.name}</p>
-                  {homeStat.map((stat) => (
-                    <p key={stat.type}>
-                      {stat.value !== null ? stat.value : 'N/A'}
+              <div className='stats__content'>
+                {!loadFixture && (
+                  <div className='stats__home'>
+                    <p className='stats__home--name'>{teams.home?.name}</p>
+                    {scorers.length > 0 && (
+                      <div className='stats__scorers'>
+                        {scorers.map((scorer, index) => (
+                          <p key={index} className='stats__scorers--item'>
+                            {scorer.team.name === teams.home?.name
+                              ? `${scorer.player.name} ${scorer.time.elapsed}'`
+                              : ''}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                    {homeStat.map((stat) => (
+                      <p key={stat.type}>
+                        {stat.value !== null ? stat.value : 'N/A'}
+                      </p>
+                    ))}
+                  </div>
+                )}
+                {!loadFixture && (
+                  <div className='stats__type'>
+                    <p className='stats__type--scores'>
+                      {goals.home} : {goals.away}
                     </p>
-                  ))}
-                </div>
-              )}
-              {!loadFixture && (
-                <div className='stats__type'>
-                  <p className='stats__type--scores'>
-                    {goals.home} : {goals.away}
-                  </p>
-                  {homeStat.map((stat) => (
-                    <p key={stat.type}>{stat.type}</p>
-                  ))}
-                </div>
-              )}
-              {!loadFixture && (
-                <div className='stats__away'>
-                  <p className='stats__away--name'>{teams.away?.name}</p>
-                  {awayStat.map((stat) => (
-                    <p key={stat.type}>
-                      {stat.value !== null ? stat.value : 'N/A'}
-                    </p>
-                  ))}
-                </div>
-              )}
+                    {scorers.length > 0 && (
+                      <div className='stats__scorers'>
+                        {scorers.map((scorer, index) => (
+                          <p key={index} className='stats__scorers--item type'>
+                            {index === 0 ? 'Scorers' : ''}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                    {homeStat.map((stat) => (
+                      <p key={stat.type} className='stats__type--item'>
+                        {stat.type}
+                      </p>
+                    ))}
+                  </div>
+                )}
+                {!loadFixture && (
+                  <div className='stats__away'>
+                    <p className='stats__away--name'>{teams.away?.name}</p>
+                    {scorers.length > 0 && (
+                      <div className='stats__scorers'>
+                        {scorers.map((scorer, index) => (
+                          <p key={index} className='stats__scorers--item'>
+                            {scorer.team.name === teams.away?.name
+                              ? `${scorer.player.name} ${scorer.time.elapsed}'`
+                              : ''}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                    {awayStat.map((stat) => (
+                      <p key={stat.type}>
+                        {stat.value !== null ? stat.value : 'N/A'}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </div>
             </IonCard>
             <IonButton
               onClick={() => setShowModal(false)}
