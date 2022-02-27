@@ -22,7 +22,7 @@ import {
 import { useContext } from 'react';
 import { useState } from 'react';
 import Context from '../store/context';
-import './Tab1.css';
+import './Tab1.scss';
 
 const leagues = [
   {

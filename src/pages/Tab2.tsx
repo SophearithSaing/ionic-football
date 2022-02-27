@@ -16,7 +16,7 @@ import {
 import { useContext } from 'react';
 import { useState } from 'react';
 import Context from '../store/context';
-import './Tab2.css';
+import './Tab2.scss';
 
 const leagues = [
   {
