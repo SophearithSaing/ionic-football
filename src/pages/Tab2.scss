@@ -11,16 +11,23 @@
   transform: translate(-50%, -50%);
 }
 .standings__table {
-  padding: 16px 16px 16px 0;
+  padding: 24px;
+}
+.standings__table--container {
   overflow-x: auto;
+  @media (max-width: 350px) {
+    font-size: 12px;
+  }
 }
 .standings__table--row {
   margin-bottom: 10px;
   flex-wrap: nowrap;
   text-align: center;
   ion-col {
-    height: 34px;
+    padding: 10px;
+    height: 44px;
     line-height: 24px;
+    border-bottom: 1px solid #eee;
   }
 }
 .standings__table--team-name {

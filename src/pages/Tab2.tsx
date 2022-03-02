@@ -111,10 +111,12 @@ const Tab2: React.FC = () => {
         )}
         {!isLoading && standings.length > 0 && (
           <IonCard className='standings__table'>
-            <IonGrid>
+            <IonGrid className='standings__table--container'>
               <IonRow className='standings__table--row'>
                 <IonCol size='2'>No.</IonCol>
-                <IonCol size='5'>Club</IonCol>
+                <IonCol size='5' className='standings__table--team-name'>
+                  Club
+                </IonCol>
                 <IonCol size='2'>MP</IonCol>
                 <IonCol size='2'>W</IonCol>
                 <IonCol size='2'>D</IonCol>
