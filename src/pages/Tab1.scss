@@ -42,6 +42,7 @@ body.dark .calendar__datepicker {
 }
 
 .matches {
+  margin-bottom: 50px;
   &__not-found {
     text-align: center;
     margin-top: 50px;
@@ -61,7 +62,7 @@ body.dark .calendar__datepicker {
     }
     @media (min-width: 767px) {
       margin: 16px auto 0;
-      max-width: 500px;
+      max-width: 650px;
     }
     &--content {
       margin: auto;
@@ -137,15 +138,18 @@ body.dark .calendar__datepicker {
     transform: translate(-50%, -50%);
   }
   &__home {
-    width: 30%;
+    width: 35%;
     text-align: left;
     &--name {
       font-weight: 600;
       font-size: 16px;
     }
+    .stats__scorers {
+      text-align: right;
+    }
   }
   &__type {
-    width: 40%;
+    width: 30%;
     text-align: center;
     &--scores {
       font-weight: 600;
@@ -156,11 +160,14 @@ body.dark .calendar__datepicker {
     }
   }
   &__away {
-    width: 30%;
+    width: 35%;
     text-align: right;
     &--name {
       font-weight: 600;
       font-size: 16px;
+    }
+    .stats__scorers {
+      text-align: left;
     }
   }
   &__scorers {

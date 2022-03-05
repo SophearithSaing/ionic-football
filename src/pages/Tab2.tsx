@@ -20,6 +20,11 @@ import './Tab2.scss';
 
 const leagues = [
   {
+    id: 410,
+    league: 'Cambodian League',
+    name: 'cambodian-league',
+  },
+  {
     id: 39,
     league: 'Premier League',
     name: 'premier-league',
@@ -58,19 +63,39 @@ const Tab2: React.FC = () => {
     setSelectedLeague(event.currentTarget.getAttribute('data-league'));
 
     const leagueID = event.currentTarget.getAttribute('data-league-id');
+    let season: string;
+    if (leagueID === '410') {
+      season = '2022';
+    } else {
+      season = '2021';
+    }
 
     const response = await fetch(
-      `https://v3.football.api-sports.io/standings?league=${leagueID}&season=2021`,
+      `https://v3.football.api-sports.io/standings?league=${leagueID}&season=${season}`,
       {
         headers: {
           'x-apisports-key': 'cecd3586b04e7c5ec4f347e8b9278b36',
         },
-      }
+      },
     );
 
     const data = await response.json();
     const item = data.response[0];
-    setStandings(item.league.standings[0]);
+
+    const standings = item.league.standings[0];
+    standings.forEach((standing: any) => {
+      if (standing.team.id === 5397) {
+        standing.team.logo = 'https://i.imgur.com/dW5ovST.jpg';
+      } else if (standing.team.id === 5566) {
+        standing.team.logo =
+          'https://upload.wikimedia.org/wikipedia/en/d/df/Nagaworld_FC_logo.png';
+      } else if (standing.team.id === 5389) {
+        standing.team.logo =
+          'https://upload.wikimedia.org/wikipedia/en/b/b0/Kirivong_Sok_Sen_Chey_FC_Crest.png';
+      }
+    });
+
+    setStandings(standings);
     setIsLoading(false);
   };
   return (
