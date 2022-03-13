@@ -223,7 +223,7 @@ const Tab1: React.FC = () => {
     );
 
     const data = await response.json();
-    const fixture = await data.response[0];
+    const fixture = data.response[0];
 
     setTeams(fixture.teams);
     setGoals(fixture.goals);

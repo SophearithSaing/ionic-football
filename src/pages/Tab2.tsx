@@ -142,6 +142,7 @@ const Tab2: React.FC = () => {
                 <IonCol size='5' className='standings__table--team-name'>
                   Club
                 </IonCol>
+                <IonCol size='2'>Pts</IonCol>
                 <IonCol size='2'>MP</IonCol>
                 <IonCol size='2'>W</IonCol>
                 <IonCol size='2'>D</IonCol>
@@ -149,7 +150,6 @@ const Tab2: React.FC = () => {
                 <IonCol size='2'>GF</IonCol>
                 <IonCol size='2'>GA</IonCol>
                 <IonCol size='2'>GD</IonCol>
-                <IonCol size='2'>Pts</IonCol>
               </IonRow>
               {standings.map((team) => (
                 <IonRow key={team.rank} className='standings__table--row'>
@@ -163,6 +163,7 @@ const Tab2: React.FC = () => {
                       <p>{team.team.name}</p>
                     </div>
                   </IonCol>
+                  <IonCol size='2'>{team.points}</IonCol>
                   <IonCol size='2'>{team.all.played}</IonCol>
                   <IonCol size='2'>{team.all.win}</IonCol>
                   <IonCol size='2'>{team.all.draw}</IonCol>
@@ -170,7 +171,6 @@ const Tab2: React.FC = () => {
                   <IonCol size='2'>{team.all.goals.for}</IonCol>
                   <IonCol size='2'>{team.all.goals.against}</IonCol>
                   <IonCol size='2'>{team.goalsDiff}</IonCol>
-                  <IonCol size='2'>{team.points}</IonCol>
                 </IonRow>
               ))}
             </IonGrid>
