@@ -7,7 +7,7 @@ const Context = React.createContext({
   changeDate: (date) => {},
   toggleDarkMode: () => {},
   matches: [],
-  loadMatches: (matches) => {},
+  setMatches: (matches) => {},
 });
 
 export const ContextProvider = (props) => {
@@ -20,10 +20,6 @@ export const ContextProvider = (props) => {
   const changeDate = (date) => {
     setDate(date);
   };
-
-  const loadMatches = (matches) => {
-    setMatches(matches);
-  }
 
   const toggleDarkMode = () => {
     if (isDark) {
@@ -42,7 +38,7 @@ export const ContextProvider = (props) => {
         changeDate,
         toggleDarkMode,
         matches,
-        loadMatches,
+        setMatches,
       }}
     >
       {props.children}
