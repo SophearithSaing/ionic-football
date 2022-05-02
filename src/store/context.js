@@ -1,19 +1,28 @@
-import React from "react";
-import { useState } from "react";
+import React from 'react';
+import { useState } from 'react';
 
 const Context = React.createContext({
   date: '',
   isDark: false,
-  changeDate: (date) => { },
-  toggleDarkMode: () => {}
+  changeDate: (date) => {},
+  toggleDarkMode: () => {},
+  matches: [],
+  loadMatches: (matches) => {},
 });
 
 export const ContextProvider = (props) => {
   const [date, setDate] = useState('');
-  const [isDark, setIsDark] = useState(document.body.classList.contains('dark'));
+  const [matches, setMatches] = useState([]);
+  const [isDark, setIsDark] = useState(
+    document.body.classList.contains('dark')
+  );
 
   const changeDate = (date) => {
     setDate(date);
+  };
+
+  const loadMatches = (matches) => {
+    setMatches(matches);
   }
 
   const toggleDarkMode = () => {
@@ -32,6 +41,8 @@ export const ContextProvider = (props) => {
         isDark,
         changeDate,
         toggleDarkMode,
+        matches,
+        loadMatches,
       }}
     >
       {props.children}
