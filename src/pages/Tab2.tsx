@@ -20,11 +20,6 @@ import './Tab2.scss';
 
 const leagues = [
   {
-    id: 410,
-    league: 'Cambodian League',
-    name: 'cambodian-league',
-  },
-  {
     id: 39,
     league: 'Premier League',
     name: 'premier-league',
