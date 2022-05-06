@@ -112,7 +112,7 @@ const Leagues: React.FC = () => {
 
       // setMatches(matches);
       // setLoadMatches(false);
-      context.setMatches(matches);
+      // context.setMatches(matches);
     };
 
   return (
